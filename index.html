@@ -30,19 +30,20 @@
             .main .controls {
                 flex: 2 0 auto;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                font-size: x-large;
+                font-family: sans-serif;
             }
-
-                .main .controls button {
-                    font-size: xx-large;
-                }
     </style>
 </head>
 <body style="text-align: center">
     <div class="main">
         <div class="controls">
-            <button id="btn-start" onclick="openFullscreen()">Start in full screen</button>
+            <h1>Virtual Art Gallery - Prototype</h1>
+            <p>After clicking the button below, please give it a minute to load. It's about 50 mb.</p>
+            <button id="btn-start" onclick="openFullscreen()">Start</button>
         </div>
         <div class="game-canvas">
             <canvas id="unity-canvas" style="background: #231F20"></canvas>
