@@ -3,23 +3,91 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Virtual Art Gallery</title>
-    <style>html, body { padding:0; margin:0;}</style>
+    <title>Simpular | Virtual Art Gallery</title>
+    <style>
+    html, body { padding:0; margin:0; height: 100% }
+    .main { 
+      padding:0;
+      margin:0;
+      display: flex;
+      flex-direction: column; 
+      width: 100%;
+      height: 100%; 
+      }
+    .main .game-canvas
+    {
+      flex:2 2 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .main .controls
+    {
+      flex:2 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+    .main .controls button
+    {
+      font-size: xx-large;
+    }
+    </style>
   </head>
   <body style="text-align: center">
-    <canvas id="unity-canvas" style="width: 100vw; height: 100vh; background: #231F20"></canvas>
+    <div class="main">
+      <div class="game-canvas">
+        <canvas id="unity-canvas" style="background: #231F20"></canvas>    
+      </div>
+      <div class="controls">
+        <button id="btn-start" onclick="openFullscreen()">Start in full screen</button>
+      </div>
+    </div>    
     <script src="Build/build_webgl.loader.js"></script>
     <script>
-      createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/build_webgl.data.unityweb",
-        frameworkUrl: "Build/build_webgl.framework.js.unityweb",
-        codeUrl: "Build/build_webgl.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Simpular",
-        productName: "Virtual Art Gallery",
-        productVersion: "0.1",
-      });
+      this.start = function()
+      {
+        console.log("Initiating instance");
+
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+          dataUrl: "Build/build_webgl.data.unityweb",
+          frameworkUrl: "Build/build_webgl.framework.js.unityweb",
+          codeUrl: "Build/build_webgl.wasm.unityweb",
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "Simpular",
+          productName: "Virtual Art Gallery",
+          productVersion: "0.1",
+        });
+      }
     </script>
-    <script>window.onresize = function(){ location.reload(); }</script>
+    <script>
+      var isStarted = false;
+
+      /* Get the documentElement (<html>) to display the page in fullscreen */
+      var elem = document.getElementById("unity-canvas");
+      
+      /* View in fullscreen */
+      function openFullscreen() {
+
+        //start the unity instance only if it's not already started
+        if(!isStarted)
+        {
+          start();
+          isStarted = true;
+        }
+
+        //initiate full screen
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+      }
+      </script>
   </body>
 </html>
